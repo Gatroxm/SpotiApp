@@ -1,0 +1,14 @@
+<app-errores *ngIf="error" [mensaje]="mensajeErrores" [titulo]="tituloErrores"></app-errores>
+<div *ngIf="!error">
+  <div class="row">
+    <div class="col">
+      <input type="text" #termino (keyup)="buscar(termino.value)" placeholder="Buscar Artista" class="form-control">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-loading *ngIf="loading" class="m-2"></app-loading>
+      <app-tarjetas [items]="artistas"></app-tarjetas>
+    </div>
+  </div>
+</div>

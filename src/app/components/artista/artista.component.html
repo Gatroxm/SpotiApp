@@ -1,0 +1,47 @@
+<app-loading *ngIf="loading" class="m-2"></app-loading>
+<app-errores *ngIf="error" [mensaje]="mensajeErrores" [titulo]="tituloErrores" ></app-errores>
+<div *ngIf="!error">
+<div *ngIf="!loading"   class="row animated fadeIn">
+  <div class="col-2">
+    <img [src]="result.images | noimage" alt="" class="img-circle img-thumbnail">
+  </div>
+  <div class="col">
+    <h3>{{ result.name }}</h3>
+    <p>
+      <a [href]="result.external_urls.spotify" target="_blank">Ir a la página de {{ result.name }}</a>
+      
+    </p>
+  </div>
+  <div class="col-4 text-right">
+    <button (click)="regresar()" class="btn btn-outline-danger"> Regresar </button>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Album</th>
+          <th>Canción</th>
+          <th>Vista Previa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let album of TopTracks">
+          <td>
+            <img [src]="album.album.images | noimage" alt="{{ album.album.name }}" title="{{ album.album.name }}" class="img-thumb">
+          </td>
+          <td>{{ album.album.name }}</td>
+          <td>{{ album.name }}</td>
+          <td>
+            <!-- <audio [src]="album.preview_url" controls></audio> -->
+            <iframe [src]="album.uri | domseguro:'https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
