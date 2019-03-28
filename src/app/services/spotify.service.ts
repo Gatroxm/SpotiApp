@@ -7,40 +7,39 @@ import { map } from 'rxjs/operators';
 })
 export class SpotifyService {
 
-  constructor( private http:HttpClient ) {}
+  constructor( private http: HttpClient ) {}
 
-  getQuery( query: String){
+  getQuery( query: string ) {
 
     const url = `https://api.spotify.com/v1/${ query }`;
 
     const headers = new HttpHeaders({
-      'Authorization' : 'Bearer BQAybl7gCKCC7Xq9QbR4F2WSU5-8HjbH37EAYsKH7XwesRnfG4E6quUFWq8WVb5S1-4uN_G5-T6HXt-5htE'
+      'Authorization' : 'Bearer BQA-qIVav_5mHYJTR5vsj4scXvLI7jSLKrzYnzZ-XVoOYH5wtiZQ3wihGMulAlnmCezFQVXuQBiUXRIDAEk'
     });
 
     return this.http.get(url, { headers });
 
   }
 
-  getNewRelases(){
+  getNewRelases() {
 
     return this.getQuery('browse/new-releases')
     .pipe( map( data =>  data['albums'].items ));
 
   }
 
-  getArtistas( termino: String ){
+  getArtistas( termino: string ) {
 
     return this.getQuery(`search?q=${ termino }&type=artist&limit=15&offset=5`)
       .pipe( map(data => data['artists'].items ));
-  
   }
 
-  getArtista( termino:string ){
+  getArtista( termino: string ) {
 
     return this.getQuery(`artists/${termino}`);
 
   }
-  getTopTracks( id:string ){
+  getTopTracks( id: string ) {
 
     return this.getQuery(`artists/${ id }/top-tracks?country=us`).pipe( map( data => data['tracks']));
 

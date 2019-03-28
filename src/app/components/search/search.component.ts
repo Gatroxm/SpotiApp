@@ -6,26 +6,25 @@ import { SpotifyService } from '../../services/spotify.service';
   templateUrl: './search.component.html',
   styles: []
 })
-export class SearchComponent{
+export class SearchComponent {
 
   artistas: any[] = [];
-  loading:Boolean = false;
+  loading = false;
 
-  error:Boolean;
-  mensajeErrores: String;
-  tituloErrores: String;
-  constructor( private spotify:SpotifyService ) { }
-  buscar( termino:String ){
+  error: boolean;
+  mensajeErrores: string;
+  tituloErrores: string;
+  constructor( private spotify: SpotifyService ) { }
+  buscar( termino: string ) {
     this.loading = true;
-    this.spotify.getArtistas( termino ).subscribe( (data: any) =>{
+    this.spotify.getArtistas( termino ).subscribe( (data: any) => {
       this.artistas = data;
       this.loading = false;
-    },(errorServicio: any) =>{
+    }, (errorServicio: any) => {
       this.error = true;
       this.loading = false;
       this.mensajeErrores = errorServicio.error.error.message;
       this.tituloErrores = errorServicio.error.error.status;
-      console.log("hoal")
-    })
+    });
   }
 }
